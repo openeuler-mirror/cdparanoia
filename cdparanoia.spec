@@ -1,7 +1,7 @@
 Summary:     Compact Disc Digital Audio (CDDA) extraction tool (or ripper)
 Name:        cdparanoia
 Version:     10.2
-Release:     29
+Release:     30
 License:     GPLv2 and LGPLv2
 URL:         http://www.xiph.org/paranoia/index.html
 Source:      http://downloads.xiph.org/releases/cdparanoia/cdparanoia-III-%{version}.src.tgz
@@ -11,8 +11,8 @@ Patch0002:   cdparanoia-10.2-install.patch
 Patch0003:   cdparanoia-10.2-format-security.patch
 Patch0004:   cdparanoia-use-proper-gnu-config-files.patch
 Patch0005:   cdparanoia-10.2-ldflags.patch
-Provides:    cdparanoia-libs
-Obsoletes:   cdparanoia-libs
+
+Requires:    %{name}-libs = %{version}-%{release}
 
 %description
 Cdparanoia (Paranoia III) is a audio CD digital audio extraction application.
@@ -20,9 +20,16 @@ It extracts audio from compact discs directly as data, and writes the data to
 a file or pipe in WAV, AIFC or raw 16 bit linear PCM format. It also contains
 dynamic libraries needed for appliation which read CD Digital Audio disks.
 
+%package     libs
+Summary:     Libraries for %{name}
+License:     LGPLv2
+
+%description libs
+Libraries for %{name}.
+
 %package     devel
 Summary:     Development tools for libcdda_paranoia (Paranoia III)
-Requires:    %{name} = %{version}-%{release}
+Requires:    %{name}-libs = %{version}-%{release}
 License:     LGPLv2
 Provides:    cdparanoia-static
 Obsoletes:   cdparanoia-static
@@ -48,13 +55,13 @@ make OPT="$RPM_OPT_FLAGS -Wno-pointer-sign -Wno-unused" LDFLAGS="%{?__global_ldf
 %install
 %make_install
 
-%post -p /sbin/ldconfig
-
-%postun -p /sbin/ldconfig
+%ldconfig_scriptlets libs
 
 %files
 %doc COPYING* README
 %{_bindir}/cdparanoia
+
+%files libs
 %{_libdir}/*.so.*
 
 %files help
@@ -66,5 +73,11 @@ make OPT="$RPM_OPT_FLAGS -Wno-pointer-sign -Wno-unused" LDFLAGS="%{?__global_ldf
 %{_libdir}/*.a
 
 %changelog
+* Mon Feb 17 2020 hexiujun <hexiujun1@huawei.com> - 10.2-30
+- Type:enhancement
+- ID:NA
+- SUG:NA
+- DESC:unpack libs subpackage
+
 * Fri Sep 20 2019 Alex Chao <zhaolei746@huawei.com> - 10.2-29
 - Package init
