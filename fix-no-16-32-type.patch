@@ -1,0 +1,21 @@
+diff -u -r cdparanoia-III-10.2/configure cdparanoia-III-10.2/configure
+--- cdparanoia-III-10.2/configure	2006-08-17 02:02:25.000000000 +0800
++++ cdparanoia-III-10.2/configure	2023-04-29 12:59:35.000000000 +0800
+@@ -4685,6 +4685,8 @@
+ echo "${ECHO_T}$ac_cv_type_int16_t" >&6
+ if test $ac_cv_type_int16_t = yes; then
+   SIZE16="int16_t"
++else
++	SIZE16="short"
+ fi
+ 
+ echo "$as_me:$LINENO: checking for int32_t" >&5
+@@ -4745,6 +4747,8 @@
+ echo "${ECHO_T}$ac_cv_type_int32_t" >&6
+ if test $ac_cv_type_int32_t = yes; then
+   SIZE32="size32_t"
++else
++	SIZE32="int"
+ fi
+ 
+ 

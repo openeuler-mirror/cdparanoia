@@ -1,7 +1,7 @@
 Summary:     Compact Disc Digital Audio (CDDA) extraction tool (or ripper)
 Name:        cdparanoia
 Version:     10.2
-Release:     31
+Release:     32
 License:     GPLv2 and LGPLv2
 URL:         http://www.xiph.org/paranoia/index.html
 Source:      http://downloads.xiph.org/releases/cdparanoia/cdparanoia-III-%{version}.src.tgz
@@ -11,6 +11,7 @@ Patch0002:   cdparanoia-10.2-install.patch
 Patch0003:   cdparanoia-10.2-format-security.patch
 Patch0004:   cdparanoia-use-proper-gnu-config-files.patch
 Patch0005:   cdparanoia-10.2-ldflags.patch
+Patch0006:   fix-no-16-32-type.patch
 
 Requires:    %{name}-libs = %{version}-%{release}
 
@@ -75,6 +76,9 @@ make OPT="$RPM_OPT_FLAGS -Wno-pointer-sign -Wno-unused" LDFLAGS="%{?__global_ldf
 %{_libdir}/*.a
 
 %changelog
+* Sat Apr 29 2023 yoo <sunyuechi@iscas.ac.cn> - 10.2-32
+- update to 10.2-32
+
 * Wed Jun 2 2021 liuyumeng <liuyumeng5@huawei.com> - 10.2-31
 - Add a buildrequires for gcc
 
